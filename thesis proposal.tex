@@ -1,0 +1,499 @@
+\documentclass[serif,envcountsect]{beamer}
+\usepackage{cctbase,ccmap,everb}
+\usepackage[normalem]{CCTfntef}
+%\hypersetup{CJKbookmarks=true}
+\usepackage{multirow}
+\usetheme{Madrid}%\usecolortheme{albatross}
+%\setbeamercolor{background canvas}{bg=blue!9}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
+%\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{picins}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{navigation symbols}{}
+\usepackage{bbding}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\newcommand{\ctodo}[1]{\todo[color=green!40]{\textbf{Chihao:} #1}}
+\newcommand{\per}{\mathrm{Per}}
+\newcommand{\eat}[1]{}
+\newcommand{\topic}[1]{\noindent{{\bf #1}:}}
+\newcommand{\calX}{{\mathcal X}}
+\newcommand{\calH}{{\mathcal H}}
+\newcommand{\calC}{{\mathcal C}}
+\newcommand{\calD}{{\mathcal D}}
+\newcommand{\calL}{{\mathcal L}}
+\newcommand{\calF}{{\mathcal F}}
+\newcommand{\calP}{{\mathcal P}}
+\newcommand{\calS}{{\mathcal S}}
+\newcommand{\calT}{{\mathcal T}}
+\newcommand{\calM}{{\mathcal M}}
+\newcommand{\calN}{{\mathcal N}}
+\newcommand{\calR}{{\mathcal R}}
+\newcommand{\tuple}[1]{\left(#1\right)}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\defeq}{\triangleq}
+
+\newcommand{\Prob}{{\operatorname{Pr}}}
+\newcommand{\Exp}{{\mathbb{E}}}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\G}{{\mathcal{G}}}
+\newcommand{\R}{{\mathbf{R}}}
+\renewcommand{\H}{{\mathcal{H}}}
+\newcommand{\T}{{\mathcal{T}}}
+\renewcommand{\P}{{\mathcal P}}
+\renewcommand{\r}{{\mathbf{r}}}
+
+\newcommand{\hpf}{\Psi(\calP)}
+
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\dist}{\mathrm{d}}
+\renewcommand{\d}{\mathrm{d}}
+
+\newcommand{\depth}{\mathsf{depth}}
+\newcommand{\rank}{\mathsf{rank}}
+\newcommand{\opt}{\mathsf{OPT}}
+\newcommand{\sol}{\mathsf{SOL}}
+\newcommand{\vol}{\mathsf{vol}}
+\newcommand{\cost}{\mathsf{cost}}
+\newcommand{\FA}{\mathrm{FPRAS}}
+\newcommand{\sharpP}{\#\mathrm{P}}
+\newcommand{\inapp}{\mathrm{Inapprox}}
+\newcommand{\open}{\mathrm{Open}}
+
+\newcommand{\B}{\mathsf{B}}
+
+\newcommand{\tB}{\widetilde{B}}
+\newcommand{\A}[1]{\langle #1\rangle}
+\newcommand{\e}{\epsilon}
+\newcommand{\bS}{\bar{S}}
+
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\false}{\mathsf{false}}
+
+\newcommand{\hx}{\widehat{x}}
+\newcommand{\hy}{\widehat{y}}
+\newcommand{\hz}{\widehat{z}}
+\newcommand{\tx}{\widetilde{x}}
+\newcommand{\ty}{\widetilde{y}}
+\newcommand{\tz}{\widetilde{z}}
+\newcommand{\hg}{\widehat{g}}
+\newcommand{\bg}{\bar{g}}
+\newcommand{\bd}{\bar{d}}
+\newcommand{\td}{\tilde{d}}
+\newcommand{\V}{\mathcal{V}}
+\renewcommand{\L}{\mathsf{T}}
+\newcommand{\U}{\mathcal{U}}
+
+\newcommand{\iin}{\mathsf{In}}
+\newcommand{\poly}{\mathrm{poly}}
+
+%\newcommand{\diam}{\mathsf{D}}
+%\newcommand{\C}{\mathsf{C}}
+%\newcommand{\DCP}{\mathsf{DCP}}
+%\newcommand{\CP}{\mathsf{CP}}
+%\newcommand{\MST}{\mathsf{MST}}
+%\newcommand{\M}{\mathsf{M}}
+%\newcommand{\MM}{\mathsf{MPM}}
+%\newcommand{\CC}{\mathsf{CC}}
+%\newcommand{\CH}{\mathsf{CH}}
+%\newcommand{\DT}{\mathsf{DT}}
+\newcommand{\diam}{\mathrm{diam}}
+\newcommand{\D}{\mathsf{D}}
+\newcommand{\C}{\mathsf{C}}
+\newcommand{\DCP}{\mathsf{C}}
+\newcommand{\KCP}{\mathsf{kC}}
+\newcommand{\CP}{\mathsf{CP}}
+\newcommand{\KC}{\mathsf{kCL}}
+\newcommand{\MST}{\mathsf{MST}}
+\newcommand{\MM}{\mathsf{PM}}
+\newcommand{\CH}{\mathsf{C}}
+\newcommand{\DT}{\mathsf{C}}
+\newcommand{\NN}{\mathsf{NN}}
+\newcommand{\KMNN}{\mathsf{kmNN}}
+
+\newcommand{\core}{stoch-core}
+
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\p}{p}
+\newcommand{\Cl}{\mathsf{Cl}}
+\newcommand{\Home}{\mathcal{H}}
+
+\newcommand{\realize}{\vDash}
+\newcommand{\consistent}{\thicksim}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\newcommand{\handr}{\textcolor{magenta}{\HandRight}}
+\newcommand{\zhuyi}{\noindent\alert{\handr}}
+\newtheorem{conjecture}{Conjecture}
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+%\def\hilite<#1>{
+%\temporal<#1>{\color{blue!35}}{\color{magenta}}
+%{\color{blue!75}}}
+\def\hilite<#1>{}
+\def\hidark<#1>{%
+\temporal<#1>{\color{black!35}}{\color{magenta}}%
+{\color{black}}}
+%====================== metapost =================================================%
+\usepackage{xmpmulti}  %% metapost
+\DeclareGraphicsRule{*}{mps}{*}{}
+
+\graphicspath{{figures/}}
+
+\newif\iflattersubsect
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\AtBeginSection[]
+{
+    \frametitle{}\small
+   \begin{frame}
+    \frametitle{Overview} %
+    \tableofcontents[currentsection]
+    \end{frame}
+    \lattersubsectfalse
+}
+
+\AtBeginSubsection[] {
+    \iflattersubsect
+    \begin{frame}
+    \frametitle{Overview} %
+    \tableofcontents[currentsubsection]
+    \end{frame}
+    \fi
+    \lattersubsecttrue
+}
+
+\title[Thesis Proposal]{Stochastic Extreme Value Optimization}
+\author[]{Yu Liu\\Advisor: Jian Li\\[0.5em]Email:~\href{liuyujyyz@gmail.com}{\color{blue!70}\texttt{liuyujyyz@gmail.com}}}
+\institute[Tsinghua Unversity]{\textcolor{olive}{Institute of Interdisciplinary Information Sciences \\
+Tsinghua University
+}}
+\date{}
+\titlegraphic{\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \ \ \includegraphics[width=0.3\textwidth]{tsinghua.png}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivations}
+
+\begin{frame}\frametitle{Stochastic Optimization}
+\begin{itemize}
+\item There are many problems we study in combinatorial optimization. They are all problems in the form
+\begin{align*}
+\max\{f(S) | S\in \calF\}\\
+\min\{f(S) | S\in \calF\}
+\end{align*}
+where $f$ is the objective function and $\calF$ is a discrete set of feasible solutions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Stochastic Optimization}
+\begin{itemize}
+\item However, optimization problems often involve parameters and inputs with uncertainty in many applications.
+%\includegraphics[scale=0.1]{sn0.jpg, db0.jpg}
+\begin{figure}
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\includegraphics[scale=0.3]{sn0.jpg}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\includegraphics[scale=0.3]{db0.jpg}
+\end{minipage}
+\end{figure}
+\item Stochastic optimization arises with these scenarios. The inputs now are random variables and the value to be optimized is replaced by $\Exp[f(S)]$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Stochastic Optimization}
+\begin{itemize}
+\item Many researchers pay attention to $f(S) = \sum_{i\in S} X_i$ in classic constraints such as knapsack, path, matroid and so on.
+\item Li et.al. provided PTAS results with $f(S) = \mu(\sum_{i \in S} X_i)$, for several important classes of utility function $\mu$.
+\item Goel et.al. proved $f(S) = \min_{i\in S} X_i$ is imapproxiable in minimization and provided constant approximation for maximizing $f(S) = \max_{i\in S} X_i$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Uncertainty Resolution}
+\begin{itemize}
+\item In some scenarios of stochastic optimization, one may resolve some uncertain inputs before the optimization is performed, with some extra system resource. Once uncertainty is (partially) removed, the performance can be significantly improved.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Model-driven Optimization}
+\begin{itemize}
+\item Problem:(Ashish Goel, Sudipto Guha, Kamesh Munagala, 2006)
+
+We are given the distributions of non-negative independent random variables $\{X_i\}_{i=1}^n$ which are observable by spending cost $\{c_i\}_{i=1}^n$ respectively. Given a budget $C$ and a objective function $f$, can we choose a subset $S$ of random variables to observe, which takes cost at most $C$ and optimizes the expected value of $f(S)$?
+\end{itemize}
+\end{frame}
+
+\section{MINIMUM-ELEMENT}
+\begin{frame}\frametitle{MINIMUM-ELEMENT}
+\begin{itemize}
+\item Problem: given the distributions of non-negative independent random variables $\{X_i\}_{i=1}^n$ with cost $\{c_i\}_{i=1}^n$ respectively. Given a budget $C$, choose a subset $S$ with cost at most $C$ that minimizes the expected value of $f(S) = \min_{i\in S} X_i$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Hardness}
+\begin{theorem}
+(Ashish Goel, Sudipto Guha, Kamesh Munagala, 2006)
+
+It is NP-Hard to obtain any $poly(m)$ approximation on the objective for MINIMUN-ELEMENT while respecting the cost budget, where $m$ is the total number of different supports of all random variables.
+\end{theorem}
+\end{frame}
+
+\subsection{Related Work}
+
+\begin{frame}\frametitle{Related Work}
+\begin{itemize}
+\item Ashish Goel et al proved the following results.(Ashish Goel, Sudipto Guha, Kamesh Munagala, 2006)
+\begin{itemize}
+\item Let $m(S) = \Exp[\min_{i\in S} X_i]$. Then $-\log m(S)$ is sub-modular.
+\item Therefore one can obtain a $(1+\varepsilon)$-approximation using greedy algorithm with some extra cost given an initial approximate solution.
+\item To achieve the same objective value, the solution that uses only observed variable observes at most one more variable than the solution that is allowed to uses all variables.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Related Work}
+\begin{theorem}
+Let $V = \Exp[\min^n_{i=1} X_i]$ and $M$ be the upper bound of random variables. There is a greedy algorithm for MINIMUM-ELEMENT achieving a $(1 + \varepsilon)$ approximation to optimal solution with cost $\tilde C = C(\log\log\frac{M}{V} + \log \frac{1}{\varepsilon})$.
+\end{theorem}
+\end{frame}
+%
+%\begin{frame}\frametitle{Related Work}
+%\begin{theorem}
+%If the total number of supports of random variables is $m$, there is an algorithm achieving a $(1+\varepsilon)$ approximation to optimal solution with cost $O(\log m + \log\frac{1}{\varepsilon})C$.
+%\end{theorem}
+%\begin{theorem}
+%If all the random variables have uniform distribution, there is an algorithm achieving a $(1+\varepsilon)$ approximation to optimal solution with cost $O(C)$.
+%\end{theorem}
+%\begin{theorem}
+%Denote $F(X)$ the C.D.F for random variable $X$. If all the functions $1 - F(X_i)$ are log-concave, there is an algorithm achieving a $(1+\varepsilon)$ approximation to optimal solution with cost $O(C)$.
+%\end{theorem}
+%\end{frame}
+
+\subsection{Our Contributions}
+\begin{frame}\frametitle{CIP Approach}
+\begin{itemize}
+\onslide<1->{
+\item When random variables are supported on $0 = v_0 < v_1 < \ldots < v_m$, the objective function can be expressed by
+$$ \Exp[\min_{i\in S} X_i] = \sum_{j=1}^m l_j \Pr[\min X_i \geq v_j] = 2^z$$
+}
+\onslide<2->{
+For each j,
+$$\log l_j + \sum_{i\in S} \log\Pr[X_i \geq v_j] \leq z$$
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{CIP Approach}
+The following solves an alternative problem: To achieve a value $2^z$, which set takes least cost?
+\begin{align*}
+Minimize & \sum c_i y_i &\\
+s.t. & \sum y_i a_{ji} \geq \log l_j - z & \forall j\in\{1, \ldots, m\}\\
+& y_i \in \{0,1\} &\forall i\in\{1, \ldots, n\}
+\end{align*}
+\end{frame}
+
+\begin{frame}\frametitle{New CIP Approach}
+\begin{itemize}
+\item If the support set is $\{0, 1, \ldots, M - 1\}$, we propose a new CIP for this case, which is similar but can reduce the cost.
+\begin{align*}
+Minimize & \sum c_i y_i &\\
+s.t. & \sum y_i a_{ji} \geq b_j & \forall j\in\{1, \ldots, \log M\}\\
+& y_i \in \{0,1\} &\forall i\in\{1, \ldots, n\}
+\end{align*}
+where $y_i$ denotes whether to choose $X_i$, $a_{ji} = -\log \Pr[X_i \geq 2^{j}]$ and $\{b_j\}$ is a set of positive integers which is increasing on $j$.
+\end{itemize}
+\end{frame}
+%
+%\begin{frame}\frametitle{New CIP Approach(Continue)}
+%\onslide<1->{\begin{lemma}
+%Given $\{b_j\}$, the CIP returns a set with minimum cost which achieves objective value at most $\sum 2^{j - b_j}$.
+%\end{lemma}}
+%\onslide<2->{
+%\begin{lemma}
+%For a guessing objective value $X^*$, the set $\{b_j\}$ can be enumerated in polynomial time with a loss factor of 2 on the objective value.
+%\end{lemma}}
+%\onslide<3->{\begin{lemma}
+%Relax $y_i\in \{0, 1\}$ to $y_i\in [0,1]$, we can obtain a fractional optimal solution and round it to a integral solution such that the cost is at most $O(\log\log\log M)C$ and the objective value is at most $O(\sum 2^{j - b_j})$.
+%\end{lemma}}
+%\end{frame}
+
+\begin{frame}\frametitle{Better Approximation}
+\onslide<1->{
+\begin{corollary}
+There is an algorithm achieving a $(1+\varepsilon)$ approximation to optimal solution with cost $O(\log \log M + \log\frac{1}{\varepsilon})C$.
+\end{corollary}
+}
+\onslide<2->{
+\begin{theorem}
+There is an algorithm which returns a set achieving $1 + \varepsilon$ approximation with cost $O(\log\log\log M + \log\frac{1}{\varepsilon})C$.
+\end{theorem}
+}
+\end{frame}
+
+\section{MAXIMUM-ELEMENT}
+\begin{frame}\frametitle{MAXIMUM-ELEMENT}
+\begin{itemize}
+\item Problem: To maximize the expected value of $f(S) = \max_{i\in S} X_i$ under combinatorial constraint $\calF$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Hardness}
+\begin{theorem}
+MAXIMUM-ELEMENT is NP-hard for non-negative random variables, respecting to the cost constraint.
+\end{theorem}
+\begin{itemize}
+\item For exact solution, MAXIMUM-ELEMENT is equivalent to MINIMUM-ELEMENT, hence it is also NP-hard.
+\item They are different in hardness of approximation. We will show that MAXIMUM-ELEMENT can be well approximated with many constraints.
+\end{itemize}
+\end{frame}
+
+\subsection{Related Work}
+
+\begin{frame}\frametitle{Related Work}
+\begin{itemize}
+\item The Lagrangian version of MAXIMUM-ELEMENT has an optimal solution even the observations are adaptive. (Sudipto Guha, Kamesh Munagala, and Saswati Sarkar, 2007) 
+\item The KNAPSACK problem where $f(S) = \max_{Q\subset S,\sum_{i\in Q} s_i \leq 1}\sum_{i\in Q} X_i$ has a constant approximation respecting to the cost constaint. (Ashish Goel, Sudipto Guha, Kamesh Munagala, 2006) 
+\item In the KNAPSACK problem, by setting all $s_i = 1$, we obtain the MAXIMUM-ELEMENT problem and the constant approximation also works for MAXIMUM-ELEMENT.
+\end{itemize}
+\end{frame}
+
+\subsection{Our Contributions}
+\begin{frame}\frametitle{Constant Approximation I}
+\begin{lemma}
+The function $M(S) = \Exp[\max_{i\in S} X_i]$ is a non-decreasing sub-modular function.
+\end{lemma}
+\begin{itemize}
+\item As the objective function is non-decreasing sub-modular, there exists constant approximation for many constraint, such as Matroids.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Constant Approximation II}
+\begin{itemize}
+\item Commonly $\Exp[\max_{i\in S} X_i]$ is upper-bounded by $\Exp[\sum_{i\in S} X_i]$. Kleinberg, Rabani and Tardos show that it is also lower-bounded in some sense. We improve their result both in bound constant and the assumption.
+\begin{lemma}
+\label{const}
+Given a set of non-negative random variables $\{X_i\}$ and a non-negative number $T$, if $\sum \Exp[\max\{X_i - T, 0\}] \geq T$, $\Exp[\max X_i] \geq T$.
+\end{lemma}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Constant Approximation II(Continue)}
+\begin{itemize}
+\item Applying Lemma~\ref{const}, we enumerate all possible values of $T$ and check whether there is a solution satisfying the condition in the lemma. 
+\begin{problem}\textbf{MAX-SUM:}
+Given a set of positive numbers $w_1, \ldots, w_n$ and a constraint $\calF$, to find a set $S\in \calF$ which maximizes the value $\sum_{i\in S} w_i$.
+\end{problem}
+\begin{theorem}
+If there is an $\alpha$-approximation for MAX-SUM, there is a $\frac{\alpha}{(\alpha+1)(1+\varepsilon)}$-approximation for MAXIMUM-ELEMENT.
+\end{theorem}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Advantages and Disadvantages}
+Compared to the simple greedy algorithm for submodular function maximization,
+\begin{itemize}
+\item Advantages: 
+\begin{itemize}
+\item Our algorithm runs much faster;
+\item Our algorithm also works for minimization.
+\end{itemize} 
+\item Disadvantages: 
+\begin{itemize}
+\item Our algorithm returns solution with smaller objective value.
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Polynomial-Time Approximation Scheme (PTAS)}
+A PTAS is an algorithm which takes an instance of an optimization problem and a parameter $\varepsilon > 0$ and, in polynomial time (polynomial of input size $n$), produces a solution that is within a factor $1 + \varepsilon$ of being optimal (or $1 - \varepsilon$ for maximization problems).
+\end{frame}
+
+\begin{frame}\frametitle{Basic Approach: Discretizaiton and Enumeration}
+\begin{itemize}
+\onslide<1->{
+\item A common approach for designing PTAS is cutting space (input space or solution space)into small parts, and enumerate all possible cases according to cutting.
+}
+\onslide<2->{
+\begin{itemize}
+\item Discretize inputs: show that the number of different types of inputs after discretization is small, hence reduce the problem to an easier problem with constant size of inputs, which can be solved by enumeration.
+}
+\onslide<3->{
+\item Discretize solution space: ensure that in each part the objective value varies little, hence enumerate all parts and reduce the problem to finding a corresponding solution in each part.
+}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Our Discretization and Enumeration}
+\begin{itemize}
+\item We both discretize the input random variables and the solution space, given an approximate value $w$ obtained from constant approximation.
+\begin{theorem}
+Given a set of non-negative random variables $\{X_i\}$, there is an algorithm constructing a set of non-negative random variables $\{Y_i\}$ such that:\\
+(1) supports of $\{Y_i\}$ is constant size;\\
+(2) for any set $S$, $|\Exp[\max_{i\in S} X_i] - \Exp[\max_{i\in S} Y_i]| \leq \varepsilon w$.
+\end{theorem}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Our Discretization and Enumeration}
+\begin{theorem}
+\label{PTAS}
+There is a signature system $Sg$ for sets satisfying:\\
+(1) the number of different signatures is polynomial and enumerable;\\
+(2) for any two sets $S_1$ and $S_2$ with the same signature, $|\Exp[\max_{i\in S_1} Y_i] - \Exp[\max_{i\in S_2} Y_i]| \leq \varepsilon w$;\\
+(3) under some reasonable assumption, given a signature, there is an algorithm returns a set with the signature or report there is no set with the signature.
+\end{theorem}
+\end{frame}
+
+\begin{frame}\frametitle{PTAS}
+\begin{itemize}
+\item According to Theorem~\ref{PTAS}, we enumerate all possible signatures, and for each signature we find a corresponding set. Finally we output a set with the optimal objective value among them.
+\end{itemize}
+\begin{theorem}
+(Informal) Under some assumption, there is a PTAS for MAXIMUM-ELEMENT.
+\end{theorem}
+\end{frame}
+
+\subsection{Second Largest}
+
+\begin{frame}\frametitle{Second Largest Element}
+\begin{itemize}
+\item Problem: $f(S) = second_{i\in S} X_i$ and the target is to maximize the expected value of $f(S)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Constant Approximation under Conjecture}
+\begin{itemize}
+\item We propose the following conjecture to extend our truncation algorithm to this case.
+\onslide<1->{
+\begin{conjecture}\label{cjc_sec}
+Given a set of Bernoulli random variables $\{X_{i, j} |i, j\in [n]\}$ with $\{X_{i,j}\}_{j=1}^n$ are i.i.d. random variables, $$\Exp[\max_{i<j} \min(X_{i,i}, X_{j,j})] <\Exp[\max_{i<j} \min(X_{i,j}, X_{j, i})] < 2\Exp[\max_{i<j} \min(X_{i,i}, X_{j,j})].$$
+\end{conjecture}
+}
+\onslide<2->{
+\begin{theorem}
+With Conjecture~\ref{cjc_sec}, there is a constant approximation for Second Largest Element Problem if there is one for MAX-SUM.
+\end{theorem}
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Thank you!}
+Questions?
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

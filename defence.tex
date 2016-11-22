@@ -1,0 +1,189 @@
+\documentclass[serif,envcountsect]{beamer}
+\usepackage{cctbase,ccmap,everb}
+\usepackage[normalem]{CCTfntef}
+%\hypersetup{CJKbookmarks=true}
+\usepackage{multirow}
+\usetheme{Madrid}%\usecolortheme{albatross}
+%\setbeamercolor{background canvas}{bg=blue!9}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
+%\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{picins}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{navigation symbols}{}
+\usepackage{bbding}
+\usepackage{todonotes}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\newcommand{\ctodo}[1]{\todo[color=green!40]{\textbf{Chihao:} #1}}
+\newcommand{\per}{\mathrm{Per}}
+\newcommand{\eat}[1]{}
+\newcommand{\topic}[1]{\noindent{{\bf #1}:}}
+\newcommand{\calX}{{\mathcal X}}
+\newcommand{\calH}{{\mathcal H}}
+\newcommand{\calC}{{\mathcal C}}
+\newcommand{\calD}{{\mathcal D}}
+\newcommand{\calL}{{\mathcal L}}
+\newcommand{\calF}{{\mathcal F}}
+\newcommand{\calP}{{\mathcal P}}
+\newcommand{\calS}{{\mathcal S}}
+\newcommand{\calT}{{\mathcal T}}
+\newcommand{\calM}{{\mathcal M}}
+\newcommand{\calN}{{\mathcal N}}
+\newcommand{\calR}{{\mathcal R}}
+\newcommand{\tuple}[1]{\left(#1\right)}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\defeq}{\triangleq}
+
+\newcommand{\Prob}{{\operatorname{Pr}}}
+\newcommand{\Exp}{{\mathbb{E}}}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\G}{{\mathcal{G}}}
+\newcommand{\R}{{\mathbf{R}}}
+\renewcommand{\H}{{\mathcal{H}}}
+\newcommand{\T}{{\mathcal{T}}}
+\renewcommand{\P}{{\mathcal P}}
+\renewcommand{\r}{{\mathbf{r}}}
+
+\newcommand{\hpf}{\Psi(\calP)}
+
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\dist}{\mathrm{d}}
+\renewcommand{\d}{\mathrm{d}}
+
+\newcommand{\depth}{\mathsf{depth}}
+\newcommand{\rank}{\mathsf{rank}}
+\newcommand{\opt}{\mathsf{OPT}}
+\newcommand{\sol}{\mathsf{SOL}}
+\newcommand{\vol}{\mathsf{vol}}
+\newcommand{\cost}{\mathsf{cost}}
+\newcommand{\FA}{\mathrm{FPRAS}}
+\newcommand{\sharpP}{\#\mathrm{P}}
+\newcommand{\inapp}{\mathrm{Inapprox}}
+\newcommand{\open}{\mathrm{Open}}
+
+\newcommand{\B}{\mathsf{B}}
+
+\newcommand{\tB}{\widetilde{B}}
+\newcommand{\A}[1]{\langle #1\rangle}
+\newcommand{\e}{\epsilon}
+\newcommand{\bS}{\bar{S}}
+
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\false}{\mathsf{false}}
+
+\newcommand{\hx}{\widehat{x}}
+\newcommand{\hy}{\widehat{y}}
+\newcommand{\hz}{\widehat{z}}
+\newcommand{\tx}{\widetilde{x}}
+\newcommand{\ty}{\widetilde{y}}
+\newcommand{\tz}{\widetilde{z}}
+\newcommand{\hg}{\widehat{g}}
+\newcommand{\bg}{\bar{g}}
+\newcommand{\bd}{\bar{d}}
+\newcommand{\td}{\tilde{d}}
+\newcommand{\V}{\mathcal{V}}
+\renewcommand{\L}{\mathsf{T}}
+\newcommand{\U}{\mathcal{U}}
+
+\newcommand{\iin}{\mathsf{In}}
+\newcommand{\poly}{\mathrm{poly}}
+
+%\newcommand{\diam}{\mathsf{D}}
+%\newcommand{\C}{\mathsf{C}}
+%\newcommand{\DCP}{\mathsf{DCP}}
+%\newcommand{\CP}{\mathsf{CP}}
+%\newcommand{\MST}{\mathsf{MST}}
+%\newcommand{\M}{\mathsf{M}}
+%\newcommand{\MM}{\mathsf{MPM}}
+%\newcommand{\CC}{\mathsf{CC}}
+%\newcommand{\CH}{\mathsf{CH}}
+%\newcommand{\DT}{\mathsf{DT}}
+\newcommand{\diam}{\mathrm{diam}}
+\newcommand{\D}{\mathsf{D}}
+\newcommand{\C}{\mathsf{C}}
+\newcommand{\DCP}{\mathsf{C}}
+\newcommand{\KCP}{\mathsf{kC}}
+\newcommand{\CP}{\mathsf{CP}}
+\newcommand{\KC}{\mathsf{kCL}}
+\newcommand{\MST}{\mathsf{MST}}
+\newcommand{\MM}{\mathsf{PM}}
+\newcommand{\CH}{\mathsf{C}}
+\newcommand{\DT}{\mathsf{C}}
+\newcommand{\NN}{\mathsf{NN}}
+\newcommand{\KMNN}{\mathsf{kmNN}}
+
+\newcommand{\core}{stoch-core}
+
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\p}{p}
+\newcommand{\Cl}{\mathsf{Cl}}
+\newcommand{\Home}{\mathcal{H}}
+
+\newcommand{\realize}{\vDash}
+\newcommand{\consistent}{\thicksim}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\newcommand{\handr}{\textcolor{magenta}{\HandRight}}
+\newcommand{\zhuyi}{\noindent\alert{\handr}}
+\newtheorem{conjecture}{Conjecture}
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+%\def\hilite<#1>{
+%\temporal<#1>{\color{blue!35}}{\color{magenta}}
+%{\color{blue!75}}}
+\def\hilite<#1>{}
+\def\hidark<#1>{%
+\temporal<#1>{\color{black!35}}{\color{magenta}}%
+{\color{black}}}
+%====================== metapost =================================================%
+\usepackage{xmpmulti}  %% metapost
+\DeclareGraphicsRule{*}{mps}{*}{}
+
+\graphicspath{{figures/}}
+
+\newif\iflattersubsect
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\AtBeginSection[]
+{
+    \frametitle{}\small
+   \begin{frame}
+    \frametitle{Overview} %
+    \tableofcontents[currentsection]
+    \end{frame}
+    \lattersubsectfalse
+}
+
+\AtBeginSubsection[] {
+    \iflattersubsect
+    \begin{frame}
+    \frametitle{Overview} %
+    \tableofcontents[currentsubsection]
+    \end{frame}
+    \fi
+    \lattersubsecttrue
+}
+
+\title[Thesis Proposal]{Stochastic Extreme Value Optimization}
+\author[]{Yu Liu\\Advisor: Jian Li\\[0.5em]Email:~\href{liuyujyyz@gmail.com}{\color{blue!70}\texttt{liuyujyyz@gmail.com}}}
+\institute[Tsinghua Unversity]{\textcolor{olive}{Institute of Interdisciplinary Information Sciences \\
+Tsinghua University
+}}
+\date{}
+\titlegraphic{\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \ \ \includegraphics[width=0.3\textwidth]{tsinghua.png}}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}\frametitle{Thank you!}
+Questions?
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
