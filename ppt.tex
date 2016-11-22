@@ -1,0 +1,99 @@
+\documentclass{beamer}
+
+\usepackage{multicol}
+
+\newcommand{\Exp}{{\mathsf{Exp}}}
+
+\mode<presentation> {
+\usetheme{Madrid}
+}
+
+\title[Short title]{Stochastic Extreme Value Optimization} 
+\author{Liu Yu} 
+\institute[IIIS] 
+{
+Tsinghua University \\ 
+\medskip
+\textit{liuyujyyz@gmail.com} 
+}
+\date{\today} 
+
+\begin{document}
+
+\begin{frame}
+\titlepage 
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} 
+\tableofcontents 
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+\frametitle{Motivation}
+
+There are 3 bandits:\\
+\begin{center}
+\begin{tabular}{|ll|ll|ll|}
+\hline
+Bandit 1& & Bandit 2& &Bandit 3& \\
+\hline
+ $0$& $0$ &  $0$& $\frac{1}{2}$ & $0$& $\frac{2}{3}$\\
+\hline
+ $1$& $1$ &  $2$& $\frac{1}{2}$  & $3$& $\frac{1}{3}$\\
+\hline
+\end{tabular}
+\end{center}
+
+\only<2-4>{
+You are charged by 1. You can only play one bandit and take the reward.
+\begin{center}
+\begin{tabular}{c c c}
+\only<3-4>{$\Exp[X_i]$ & &$\Pr[X_i > 1]$\\}
+\only<4>{All the same: 1& & Bandit 2: $\frac{1}{2}$}
+\end{tabular}
+\end{center}
+}
+\only<5->{
+You are charged by 1.5. But you can play two of them and take the better one.
+\begin{center}
+\begin{tabular}{c c c}
+\only<6->{$\Exp[\max(X_i, X_j)]$ & &$\Pr[\max(X_i, X_j) > 1.5]$\\}
+\only<7->{Bandit 1,3 or 2, 3: $\frac{5}{3}$& &Bandit 2 and 3: $\frac{2}{3}$}
+\end{tabular}
+\end{center}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problem Definition}
+\begin{problem}[MAXIMUM-ELEMENT]
+    Given a set of bandits (random variables $\{X_i\}_{i=1}^n$) with known distributions of rewards, choose a set ($S\subset[n]$) to play under a constraint ($|S| = k$) and take the best.  \\
+    Target: maximize the expected reward ($\Exp[\max_{i\in S} X_i]$).
+\end{problem}
+\end{frame}
+
+\section{MAXIMUM-ELEMENT}
+\begin{frame}
+\frametitle{Our Contributions}
+\begin{theorem}[Main Theorem]
+    There is a constant approximation algorithm;\\
+    There is a PTAS.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+
+\end{frame}
+
+\section{MINIMUM-ELEMENT}
+\begin{frame}
+\frametitle{Our Contributions}
+\begin{theorem}
+\end{theorem}
+\end{frame}
+
+\end{document}
+

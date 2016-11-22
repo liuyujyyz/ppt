@@ -1,0 +1,1 @@
+echo "chmod +x file"; latex ppt.tex; dvipdf ppt.dvi; echo "xdg-open ppt.pdf"
