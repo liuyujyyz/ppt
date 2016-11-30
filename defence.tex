@@ -181,6 +181,98 @@ Tsinghua University
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Overview} 
+\tableofcontents 
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+\frametitle{Interview Scheduling}
+Alice is finding a job. Alice makes a simple survey about all companies she is interested. She estimates the salary distributions according to the conditions of herself.\\
+
+However, Alice has to choose some companies and only attends interviews of these company. Alice will choose an offer with the highest salary.\\
+
+Which companies should Alice choose to maximize her expected salary?
+\end{frame}
+
+\begin{frame}
+\frametitle{Bandit Play}
+
+There are 3 bandits:\\
+\begin{center}
+\begin{tabular}{|ll|ll|ll|}
+\hline
+Bandit 1& & Bandit 2& &Bandit 3& \\
+\hline
+ $0$& $0$ &  $0$& $\frac{1}{2}$ & $0$& $\frac{2}{3}$\\
+\hline
+ $1$& $1$ &  $2$& $\frac{1}{2}$  & $3$& $\frac{1}{3}$\\
+\hline
+\end{tabular}
+\end{center}
+
+\only<2-4>{
+You are charged by 1. You can only play one bandit and take the reward.
+\begin{center}
+\begin{tabular}{c c c}
+\only<3-4>{$\Exp[X_i]$ & &$\Pr[X_i > 1]$\\}
+\only<4>{All the same: 1& & Bandit 2: $\frac{1}{2}$}
+\end{tabular}
+\end{center}
+}
+\only<5->{
+You are charged by 1.5. But you can play two of them and take the better one.
+\begin{center}
+\begin{tabular}{c c c}
+\only<6->{$\Exp[\max(X_i, X_j)]$ & &$\Pr[\max(X_i, X_j) > 1.5]$\\}
+\only<7->{Bandit 1,3 or 2, 3: $\frac{5}{3}$& &Bandit 2 and 3: $\frac{2}{3}$}
+\end{tabular}
+\end{center}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problem Definition}
+    \begin{itemize}
+    \item Input 1: a set of choices (companies, bandits);
+	\item Input 2: a collection of feasible choice sets (time cost, number of plays);
+	\item Output: a feasible set, which maximizes the expected value of the best choice.
+	\end{itemize}
+\begin{problem}[$\MM$]
+Input:
+\begin{itemize}
+\item a set of random variables $\{X_i\}$;
+\item a collection of feasible set $\calF \subset 2^{[n]}$;
+\end{itemize}
+Output:
+\begin{itemize}
+\item a set $S\in \calF$, which maximizes $\Exp[\max_{i\in S} X_i]$.
+\end{itemize}
+\end{problem}
+\end{frame}
+
+\section{MAXIMUM-ELEMENT}
+\begin{frame}
+\frametitle{Our Contributions}
+\begin{theorem}[Main Theorem]
+    There is a constant approximation algorithm;\\
+    There is a PTAS.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+
+\end{frame}
+
+\section{MINIMUM-ELEMENT}
+\begin{frame}
+\frametitle{Our Contributions}
+\begin{theorem}
+\end{theorem}
+\end{frame}
+
 \begin{frame}\frametitle{Thank you!}
 Questions?
 \end{frame}
