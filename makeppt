@@ -1,1 +1,13 @@
-echo "chmod +x file"; latex ppt.tex; dvipdf ppt.dvi; echo "xdg-open ppt.pdf"
+#!/bin/bash
+echo "chmod +x file"
+if [ -z "$1" ]; then
+    latex ppt.tex
+    bibtex ppt.aux
+    latex ppt.tex 
+fi
+
+    latex ppt.tex
+    dvipdf ppt.dvi
+    xdg-open ppt.pdf;
+    echo "xdg-open ppt.pdf"
+
