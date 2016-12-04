@@ -246,7 +246,7 @@ You are charged by 1.5. But you can play two of them and take one reward.
 \begin{problem}[$\MM$]
 Input:
 \begin{itemize}
-\item a set of independent random variables $\{X_i\}$;
+\item a set of independent non-negative random variables $\{X_i\}$;
 \item a collection of feasible set $\calF \subset 2^{[n]}$ (Constraint);
 \end{itemize}
 Output:
@@ -257,7 +257,7 @@ Output:
 
 Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 
-\mm: minimize $\Exp[\min_{i\in S} X_i]$.
+\mm: $\calF = \{S \mid \sum_{i\in S} c_i \leq C\}$, and minimize $\Exp[\min_{i\in S} X_i]$.
 \end{frame}
 
 \begin{frame}
@@ -304,6 +304,15 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \end{frame}
 
 \section{MAXIMUM-ELEMENT}
+
+\begin{frame}
+    \begin{problem}[\MM]
+        \begin{itemize}
+            \item Input: a set of independent non-negative random variables $\{X_i\}$, a constraint $\calF \subset 2^{[n]}$;
+            \item Output: a set $S\in \calF$ which maximizes $\Exp[\max_{i\in S} X_i]$.
+        \end{itemize}
+    \end{problem}
+\end{frame}
 
 \begin{frame}
 \frametitle{Our Contributions}
@@ -378,7 +387,7 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
         \item    We discretize input distributions using their Bernoulli decomposition according to the value $M = \Exp[\max_{i\in S} X_i]$.\\
         \item    After discretization step we get:
     \begin{itemize}
-        \item A set $\mathsf{Supp}$ of size $O(\frac{1}{\varepsilon^2})$;
+        \item A set $\mathsf{Supp}$ of size $z = O(\frac{1}{\varepsilon^2})$;
         \item $n$ random variables $\bar X_1, \ldots, \bar X_n$ taking values over set $\mathsf{Supp}$.
         \item The optimal solution for $\{\bar X_i\}$ is close to the one for $\{X_i\}$.
     \end{itemize}
@@ -509,8 +518,18 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 
 \section{MINIMUM-ELEMENT}
 \begin{frame}
+    \begin{problem}[\mm]
+        \begin{itemize}
+            \item Input: A set of independent non-negative random variables $\{X_i\}$ with cost $\{c_i\}$, a budget $C$;
+            \item Output: A set $S$ with total cost at most $C$ which minimizes $\Exp[\min_{i\in S} X_i]$.
+        \end{itemize}
+    \end{problem}
+\end{frame}
+\begin{frame}
 \frametitle{Our Contributions}
 \begin{theorem}
+    In the case that all random variables taking value over $\{0, 1, \ldots, m - 1\}$, there is an approximation algorithm providing a $(1+\varepsilon)$-approximation with extra cost at most $O(\log\log\log m)C$.\\
+    {\color{blue} Previous: extra cost $O(\log\log m)C$.}
 \end{theorem}
 \end{frame}
 
