@@ -166,7 +166,7 @@ Tsinghua University \\
 Tsinghua University
 }}
 \date{}
-%\titlegraphic{\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \ \ \includegraphics[scale = 0.1]{tsinghua.png}}
+\titlegraphic{\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \ \ \includegraphics[scale = 0.1]{tsinghua.eps}}
 
 \begin{frame}
 \titlepage
@@ -182,15 +182,24 @@ Tsinghua University
 
 \begin{frame}
 \frametitle{Interview Scheduling}
-Alice is finding a job. Alice makes a simple survey about all companies she is interested. She estimates the salary distributions according to her condition.
 \begin{spacing}{2.0}
 
 \end{spacing}
-However, Alice has to choose some companies and only attends interviews of these company. Alice will choose an offer with the highest salary.
-\begin{spacing}{2.0}
+\begin{multicols}{2}
+    \centering
+    \includegraphics[width=0.3\textwidth]{head.eps}%
+    \begin{figure}
+    \includegraphics[width=0.3\textwidth]{all.eps}
+    \begin{spacing}{4.0}
 
-\end{spacing}
-Which companies should Alice choose to maximize her expected salary?
+    \end{spacing}
+    \onslide<2->{\includegraphics[width=0.3\textwidth]{left.eps}}
+\end{figure}
+\end{multicols}
+
+Bob has limited time, and only attends interviews of some chosen companies.
+
+\onslide<3->{Which companies should Bob choose to maximize his expected salary?}
 %\end{spacing}
 \end{frame}
 
@@ -210,25 +219,18 @@ Bandit 1& & Bandit 2& &Bandit 3& \\
 \end{tabular}
 \end{center}
 
-\only<2-4>{
-You are charged by 1. You can only play one bandit and take the reward.
-\begin{center}
-\begin{tabular}{c c c}
-\only<3-4>{$\Exp[X_i]$ & &$\Pr[X_i > 1]$\\}
-\only<4>{All the same: 1& & Bandit 2: $\frac{1}{2}$}
-\end{tabular}
-\end{center}
+\only<2-2>{
+You are charged by 1 to play one bandit and take the reward.
 }
-\only<5->{
-You are charged by 1.5. But you can play two of them and take one reward.
+\only<3->{
+You are charged by 1.5. You can play two of them but take one reward.
 \begin{spacing}{2.0}
 \begin{center}
-\begin{tabular}{c c c}
-    \only<6->{& $\Exp[\max(X_i, X_j)]$ &$\Pr[\max(X_i, X_j) > 1.5]$\\}
-    \only<7->{
-        Bandit 2, 3: & {\color{red}$\frac{5}{3}$} & {\color{red}$\frac{2}{3}$}\\
-        Bandit 1, 3: & {\color{red}$\frac{5}{3}$} & $\frac{1}{3}$\\
-        Bandit 1, 2: & $\frac{3}{2}$ & $\frac{1}{2}$\\
+\begin{tabular}{c c}
+    \onslide<4->{
+        Bandit 2, 3: & {\color{red}$\frac{5}{3}$}\\
+        Bandit 1, 3: & {\color{red}$\frac{5}{3}$}\\
+        Bandit 1, 2: & $\frac{3}{2}$\\
     }
 \end{tabular}
 \end{center}
@@ -241,8 +243,9 @@ You are charged by 1.5. But you can play two of them and take one reward.
     \begin{itemize}
     \item Input 1: a set of choices (companies, bandits);
 	\item Input 2: a collection of feasible choice sets (time cost, number of plays);
-	\item Output: a feasible set, which maximizes the expected value of the best choice.
+	\item Output: a feasible set, which optimizes the expected value of the best choice.
 	\end{itemize}
+    \onslide<2->{
 \begin{problem}[$\MM$]
 Input:
 \begin{itemize}
@@ -254,14 +257,16 @@ Output:
 \item a set $S\in \calF$, which maximizes $\Exp[\max_{i\in S} X_i]$.
 \end{itemize}
 \end{problem}
+}
+\onslide<3->{
+Minimization variant: minimize $\Exp[\max_{i\in S} X_i]$.
 
-Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
-
-\mm: $\calF = \{S \mid \sum_{i\in S} c_i \leq C\}$, and minimize $\Exp[\min_{i\in S} X_i]$.
+\mm: $\calF = \{S \mid \sum_{i\in S} c_i \leq C\}$, and minimize $\Exp[\min_{i\in S} X_i]$.}
 \end{frame}
 
 \begin{frame}
 \frametitle{Examples of Constraints}
+A constraint $\calF$ can have exponential size. Assume it can be represented implictly.
 \begin{itemize}
 \item Cardinality Constraint: $\{S \mid |S| = K\}$;
 \item Cost Constraint: $\{S \mid \sum_{i\in S} c_i \leq C\}$;
@@ -275,21 +280,25 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \begin{frame}
     \frametitle{Adaptivity}
     \begin{itemize}
-        \item Adaptive Algorithm: take a choice and observe the reward, make the next decision accoring to the reward.
-        \item Non-adaptive Algorithm: make decisions offline, no matter what the reward is.
+        \item Adaptive Algorithm: play a bandit and observe the reward, decide which to play next according to previous rewards.
+            \begin{spacing}{2.0}
+
+            \end{spacing}
+        \item \only<1-1>{Non-adaptive Algorithm}\only<2->{{\color{red}Non-adaptive Algorithm}}: decide chosen companies and take interviews one by one.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Related Work}
 \begin{itemize}
-    \item Goel \etal studied a variant of knapsack problem and obtain a $\frac{1}{4}(1 - \frac{1}{e})$-approximation algorithm for \MM\ under Cost Constraint.\cite{Goel:asking}
-    \item Guha \etal studied the Lagrangian version with Cost Constraint, and proved it can be solved optimally.\cite{Guha07informationacquisition}
-    \item Chen \etal studied an online problem and proposed a $1-\frac{1}{e}$-approximation offline algorithm for \MM under Cardinality Constraint.\cite{NIPS2016:MAB}
+    \item Goel \etal~\cite{Goel:asking}: a $\frac{1}{4}(1 - \frac{1}{e})$-approximation algorithm for \MM\ under Cost Constraint.
+    \item Guha \etal~\cite{Guha07informationacquisition}: the Lagrangian version of \MM\ with Cost Constraint can be solved optimally.
+    \item Chen \etal~\cite{NIPS2016:MAB}: online problem and a {\color{red}$(1-\frac{1}{e})$}-approximation offline algorithm for \MM\ under Cardinality Constraint.
     \item Goel \etal studied \mm\ deeply and obtained some important results:\cite{Goel:probe}
     \begin{itemize}
-        \item Proved it is NP-hard to approximate with any polynomial ratio under the Cost Constraint.
-        \item Proposed the CIP (Covering Integer Program) approach to design bi-criteria $(1+\varepsilon)$-approximation algorithm with extra cost.
+        \item It is NP-hard to approximate with any polynomial ratio under the Cost Constraint;
+        \item $ -\log \Exp[\min_{i\in S} X_i]$ is sub-modular;
+        \item CIP (Covering Integer Program) approach to design bi-criteria $(1+\varepsilon)$-approximation algorithm with extra cost.
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -297,19 +306,23 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \begin{frame}
     \frametitle{Notations}
     \begin{itemize}
-        \item A discrete random variable $X_i$ takes value over the support set$\{a_{i,1}, \ldots, a_{i, s_i}\}$, with probability $\Pr[X_i = a_{i,j}] = p_{i,j}$. In problems, it is inputed using $\{a_{i,j}\}$ and $\{p_{i,j}\}$.
-        \item A Bernoulli random variable has support set with only one non-zero value.
-        \item A constraint $\calF$ can have exponential size. Assume it can be represented implictly, i.e., matroid, paths, cuts, forests, ...
+        \item A discrete random variable $X_i$ takes value over the support set$\{a_{i,1}, \ldots, a_{i, s_i}\}$, with probability $\Pr[X_i = a_{i,j}] = p_{i,j}$. In problems, it is inputted using $\{a_{i,j}\}$ and $\{p_{i,j}\}$.
+        \item A Bernoulli random variable has support set $\{0, a > 0\}$.
     \end{itemize}
 \end{frame}
 
 \section{MAXIMUM-ELEMENT}
 
+\subsection{Contributions}
+
 \begin{frame}
+    \frametitle{Problem Definition}
     \begin{problem}[\MM]
         \begin{itemize}
-            \item Input: a set of independent non-negative random variables $\{X_i\}$, a constraint $\calF \subset 2^{[n]}$;
-            \item Output: a set $S\in \calF$ which maximizes $\Exp[\max_{i\in S} X_i]$.
+            \item Input:\\
+                a set of independent non-negative random variables $\{X_i\}$,\\
+                a constraint $\calF \subset 2^{[n]}$;
+            \item Output:\\ a set $S\in \calF$ which maximizes $\Exp[\max_{i\in S} X_i]$.
         \end{itemize}
     \end{problem}
 \end{frame}
@@ -317,7 +330,8 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \begin{frame}
 \frametitle{Our Contributions}
 \begin{itemize}
-    \item In previous work, people design approximation algorithms based on $\Exp[\max_{i\in S} X_i]$ is submodular; In our work, we introduced the truncation trick used in similar problems~\cite{kleinberg2000allocating,guha2009exceeding}. Our algorithm works under more kinds of constraints.
+    \item In previous work, people design approximation algorithms based on $M(S) = \Exp[\max_{i\in S} X_i]$ is submodular; In our work, we introduced the truncation trick used in similar problems~\cite{kleinberg2000allocating,guha2009exceeding}. 
+    \item Our algorithm works under more kinds of constraints.
     \item We first propose a PTAS for \MM\ using the discretization and enumeration technique.
 \end{itemize}
 \end{frame}
@@ -343,13 +357,16 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \frametitle{Results}
 \begin{theorem}[Main Theorem]
     \begin{enumerate}
-        \item    There is a constant approximation algorithm for \MM, if there is a constant approximation algorithm for \MS;
-        \item    There is a constant approximation algorithm for minimization version \MM, if there is a constant approximation algorithm for \ms;
-        \item    There are PTAS for both \MM\ and minimization version of \MM, if there is a psuedo-polynomial time algorithm for \ES.
-\end{enumerate}
+        \item  A constant approximation algorithm for \MS\\
+            $\Rightarrow$ a constant approximation algorithm for \MM;
+        \item  A constant approximation algorithm for \ms\\
+            $\Rightarrow$ a constant approximation algorithm for minimization variant of \MM;
+        \item  A psuedo-polynomial time algorithm for \ES\\
+            $\Rightarrow$ PTAS for both \MM\ and minimization variant of \MM.
+    \end{enumerate}
 \end{theorem}
 \end{frame}
-
+\subsection{Constant Approximation}
 \begin{frame}
     \frametitle{Constant Approximation}
 
@@ -357,19 +374,25 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
         For any set $S$ and constant $T$, if $\Exp[\sum_{i\in S} \max(X_i - T, 0)] \geq T$, we have
         $$\Exp[\max_{i\in S} X_i] \geq T.$$
     \end{lemma}
-
+    \onslide<2->{
     Find a $T$ such that:
     \begin{itemize}
-        \item For all set $S\in \calF$, $\Exp[\sum_{i\in S} \max(X_i - T, 0)] < T$ (provide a upper bound for optimal solution);
+        \item For all set $S\in \calF$, $\Exp[\sum_{i\in S} \max(X_i - T, 0)] \leq T$ (provide a upper bound for optimal solution);
         \item Exist a set $\sol$, $\Exp[\sum_{i\in \sol} \max(X_i - T, 0)] \geq T$ (provide a lower bound for algorithm output).
     \end{itemize}
+}
 \end{frame}
 
+\subsection{PTAS}
 \begin{frame}
     \frametitle{Bernoulli Decomposition}
     \begin{definition}[Bernoulli Decomposition]
         Given a discrete random variable $X$, its Bernoulli decomposition is a set of Bernoulli random variables $\{Z_j\}$ such that $X\sim \max_j Z_j$.
     \end{definition}
+    \begin{spacing}{3.0}
+
+    \end{spacing}
+    \onslide<2->{
     If $\Pr[X = a_j] = p_j$, for $j = 1, \ldots, N$, 
     $$Z_j = \left\{
         \begin{array}{ll}
@@ -378,13 +401,14 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
         \end{array}
         \right.
         $$
+    }
 \end{frame}
 
 \begin{frame}
     \frametitle{PTAS: Discretization}
     \begin{itemize}
-        \item    We first run a constant approximation algorithm to obtain an approximation solution $S$.\\
-        \item    We discretize input distributions using their Bernoulli decomposition according to the value $M = \Exp[\max_{i\in S} X_i]$.\\
+        \item    We first run a constant approximation algorithm to obtain an approximation solution $S$ with objective value $M = \Exp[\max_{i\in S} X_i]$.\\
+        \item    We discretize input distributions using their Bernoulli decomposition and the value $M$.\\
         \item    After discretization step we get:
     \begin{itemize}
         \item A set $\mathsf{Supp}$ of size $z = O(\frac{1}{\varepsilon^2})$;
@@ -422,6 +446,7 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \begin{frame}
     \frametitle{Discretization}
     \begin{multicols}{2}
+    \only<1,3>{
     \begin{figure}
     \begin{tikzpicture}[
             scale = 0.6,
@@ -430,7 +455,9 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
         hypergeompmf(\N,\K,\n,\k)=binomcoeff(\K,\k)*binomcoeff(\N-\K, \n-\k)/binomcoeff(\N,\n);}
     ]
     \begin{axis}[
-        samples at={0,1,...,22,23},
+        samples at={0,1,...,23,24},
+        xtick={0,5,10,15,20,25},
+        xticklabels={$0$, $5$, $10$, $15$, $20$, $W/\varepsilon$},
         yticklabel style={
              /pgf/number format/fixed,
        %     /pgf/number format/fixed zerofill,
@@ -439,13 +466,27 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 %        every axis legend/.append style={at={(0.2,0.6)}, anchor=south}
     ]
     \addplot [mark=*, cyan] {hypergeompmf(80,25,20,x)};
-    \addplot [mark=*, red] coordinates {(24, {0.01})};
+    \addplot [mark=*, red] coordinates {(25, {0.01})};
     \end{axis}
     \end{tikzpicture}
-    \caption{Cut the tail of the distribution.}
-    \end{figure}%
-%\end{frame}
-%\begin{frame}
+    \caption{Cut the tail, part larger than $\frac{W}{\varepsilon}$. }
+    \end{figure}}
+    \only<2>{
+        Round $\bar Z_i$ to a multiple of $u = \varepsilon W$:
+        $$\bar Z_i \leftarrow \lfloor \frac{\bar Z_i}{u}\rfloor u,$$
+        $$\bar X = \max \bar Z_i.$$
+    }%
+    \only<1>{
+        Bernoulli Decomposition: $Z_1, Z_2, \ldots$;\\
+        $Z_i = B(a_i, p_i)$.
+        \begin{spacing}{2.0}
+
+        \end{spacing}
+        If $a_i \leq \frac{W}{\varepsilon}$, $\bar Z_i = Z_i$;\\
+        If $a_i > \frac{W}{\varepsilon}$, $\bar Z_i = B(\frac{W}{\varepsilon}, \Exp[Z_i]\varepsilon/W)$.
+        
+    }
+    \only<2->{
     \begin{figure}
     \begin{tikzpicture}[
             scale = 0.6,
@@ -456,8 +497,10 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
         hyperadd(\N,\K,\n,\k)=hypergeommf(\N,\K,\n,\k)+hypergeommf(\N,\K,\n,\k+1)+hypergeommf(\N,\K,\n,\k+2);}
     ]
     \begin{axis}[
-        samples at={0,3,...,21},
+        samples at={0,3,...,21,24},
         %ycomb,
+        xtick={0,3,6,9,15,25},
+        xticklabels={$0$, $u$, $2u$, $3u$, $\ldots\ldots$, $W/\varepsilon$}
         %yticklabel style={
         %    /pgf/number format/fixed,
             %/pgf/number format/fixed zerofill,
@@ -466,39 +509,39 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 %        every axis legend/.append style={at={(0.2,0.6)}, anchor=south}
     ]
     \addplot [mark=*, cyan] {hyperadd(80,25,20,x)};
-    \addplot [mark=*, red] coordinates {(24, {0.01})};
+    \addplot [mark=*, red] coordinates {(25, {0.01})};
     \end{axis}
     \end{tikzpicture}
-    \caption{Discretize supports with small steps.}
-    \end{figure}
+    \caption{Discretize supports with small steps $u=\varepsilon W$.}
+    \end{figure}}
 \end{multicols}
 \end{frame}
 
 \begin{frame}
     \frametitle{PTAS: Signatures}
     \begin{itemize}
-        \item Inputs: $\{\bar X_i\}$ on $\mathsf{Supp}$. $\bar X_i$ can be Bernoulli decomposed to $\{Y_{i,j}\}_{j=1}^z$.
-        \item Define Signature for $\bar X_i$ using $\log\Pr[Y_{i,j} = 0]$:
+        \item $\bar X_i$ can be Bernoulli decomposed to $\{Y_{i,j}\}_{j=1}^z$.
+        \item Define Signature for $\bar X_i$ using $q_{i,j} = \Pr[Y_{i,j} = 0]$:
             $$\mathsf{Sig}(\bar X_i) = (\lfloor \frac{-\log(q_{i,1})}{\varepsilon^4 / n}\rfloor\varepsilon^4/n, \cdots, \lfloor \frac{-\log(q_{i,z})}{\varepsilon^4 / n}\rfloor\varepsilon^4/n)$$
-            \begin{block}{Fact}
-                \begin{itemize}
-                    \item $\Exp[\max_{i\in S} \bar X_i]$ takes value on $\mathsf{Supp}$, and can be Bernoulli decomposed to $\{BD_{S,j}\}_{j=1}^z$.\\ 
-                    \item $BD_{S,j} = \max_{i\in S} Y_{i,j}$, and $\Pr[BD_{S,j} = 0] = \prod_{i\in S} \Pr[Y_{i,j} = 0]$.
-                \end{itemize}
-            \end{block}
-        \item Define Signature for set $S$ as $$\mathsf{Sig}(S) = \sum_{i\in S} \mathsf{Sig}(\bar X_i).$$ 
+                    \item Define Signature for set $S$ as $$\mathsf{Sig}(S) = \sum_{i\in S} \mathsf{Sig}(\bar X_i).$$ 
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Signatures}
+\begin{block}{Fact}
+                \begin{itemize}
+                    \item $\Exp[\max_{i\in S} \bar X_i]$ takes value on $\mathsf{Supp}$, and can be Bernoulli decomposed to $\{BD_{S,j}\}_{j=1}^z$.\\ 
+                    \item $BD_{S,j} = \max_{i\in S} Y_{i,j}$, and $\Pr[BD_{S,j} = 0] = \prod_{i\in S} \Pr[Y_{i,j} = 0]$.
+                \end{itemize}
+            \end{block}
     \begin{lemma}
         If two sets have the same signature, their objective values differ at most $O(\varepsilon) W$.
     \end{lemma}
-    \begin{spacing}{2.0}
+    \begin{spacing}{1.2}
     \onslide<2->{
-        For two sets $S_1$ and $S_2$, $\mathsf{Sig}(S_1) = \mathsf{Sig}(S_2).$\\}
-    \onslide<3->{$\Rightarrow$ $\sum_{S_1} \mathsf{Sig}(X_i) = \sum_{S_2} \mathsf{Sig}(X_i)$.\\}
+    For two sets $S_1$ and $S_2$, ${\color{red} \mathsf{Sig}(S_1)} = {\color{red}\mathsf{Sig}(S_2).}$\\}
+    \onslide<3->{$\Rightarrow$ ${\color{red}\sum_{S_1} \mathsf{Sig}(X_i)} = {\color{red}\sum_{S_2} \mathsf{Sig}(X_i)}$.\\}
     \onslide<4->{$\Rightarrow$ {\color{red}$\sum_{S_1} \log(q_{i,j})$} is close to {\color{red} $\sum_{S_2} \log(q_{i,j})$} for any $j$.\\}
     \onslide<5->{$\Rightarrow$ {\color{red}$\prod_{S_1} q_{i,j}$} is close to {\color{red}$\prod_{S_2}q_{i,j}$} for any $j$.\\}
     \onslide<6->{$\Rightarrow$ {\color{red}$BD_{S_1,j}$} is close to {\color{red}$BD_{S_2, j}$} for any $j$.\\}
@@ -509,10 +552,12 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \begin{frame}
     \frametitle{PTAS: Enumeration}
     \begin{enumerate}
-        \item Enumerate possible signatures of sets.
-        \item For each signature, try to find a candidate with such signature.\\
-            (Quote: Encode signatures to integers and reduce finding a corresponding solution to \ES.)
-        \item Return a candidate with the best objective value as solution.
+        \onslide<1->{\item Enumerate possible signatures of sets.}
+        \onslide<2->{\item For each signature, try to find a candidate with such signature.\\}
+            \only<3-3>{ {\color{blue} Coordinates of signatures are integer multiple of $\varepsilon^4/n$.\\ 
+            Encode one signature to one integer.\\
+    Reduce finding a corresponding solution to \ES.\\}}
+\onslide<4->{        \item Return a candidate with the best objective value as solution.}
     \end{enumerate}
 \end{frame}
 
@@ -524,7 +569,27 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
             \item Output: A set $S$ with total cost at most $C$ which minimizes $\Exp[\min_{i\in S} X_i]$.
         \end{itemize}
     \end{problem}
+    \begin{spacing}{2.0}
+
+    \end{spacing}
+    Alternate: Achieve $(1+\varepsilon)$-approximation with minimum cost.
 \end{frame}
+
+\begin{frame}
+    \frametitle{Key Fact}
+    \begin{theorem}[\cite{Goel:probe}]
+        Define $f(S) =\Exp[ \min_{i\in S} X_i]$, $-\log f$ is submodular.
+    \end{theorem}
+    \begin{theorem}[\cite{nemhauser1978analysis}]
+        \label{thm:add-submod}
+Given a submodular function $g$ and budget $C$. Let $S^*$ be the optimal solution. With an initial set $S$, the greedy algorithm using extra cost at most $C\log\frac{g(S^*) - g(S)}{\varepsilon}$ finds a set $T$ such that $g(S^*) - g(T) \leq \varepsilon$.
+    \end{theorem}
+    \begin{spacing}{2.0}
+
+    \end{spacing}
+    $$R_1 OPT, R_2 C \Longrightarrow (1+\varepsilon)OPT, O(R_2 + \log R_1) C$$.
+\end{frame}
+
 \begin{frame}
 \frametitle{Our Contributions}
 \begin{theorem}
@@ -533,7 +598,72 @@ Minimization version: minimize $\Exp[\max_{i\in S} X_i]$.
 \end{theorem}
 \end{frame}
 
-\begin{frame}\frametitle{Thank you!}
+\begin{frame}
+    \frametitle{CIP Approach}
+    \begin{itemize}
+        \item $\Exp[\min_{i\in S} X_i]
+            = \sum_{j > 0} \Pr[\min_{i\in S} X_i \geq j] 
+            = \sum_{j > 0} \prod_{i\in S}\Pr[X_i \geq j]$
+        \item If for any $j$, $\prod_{i\in S}\Pr[X_i \geq j] \leq b_j$, then $\Exp[\min_{i\in S} X_i] \leq \sum_j b_j$.
+        \item Let $u_{i,j} = -\log \Pr[X_i \geq j]$, $x_i$ represents the choice,
+            \begin{align*}
+                \text{minimize} & \sum c_i x_i & \\
+                \text{s.t.}
+                & \sum_i u_{i,j} x_i \geq -\log b_j
+                & \only<1-2>{ \text{for } j = 1, 2, 3, \ldots, m - 1} 
+                \only<3->{\text{for } {\color{red} j = 1, 2, 4, 8, \ldots, 2^{[\log m]}}}\\
+            & x_i \in 
+                \only<1-1>{\{0, 1\}} 
+                \only<2->{{\color{blue} [0,1]}} 
+                & \text{for } i = 1, 2, \ldots, n.
+            \end{align*}
+    \end{itemize}
+    \only<2>{$R_1 = m, R_2 = O(\log m)$}
+    \only<3>{$R_1 = O(\log m), R_2 = O(\log\log m)$}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Our Improvement}
+     \begin{align*}
+                \text{minimize} & \sum c_i x_i & \\
+                \text{s.t.}
+                & \sum_i u_{i,j} x_i \geq z_j
+                & \text{for } j = 1, \ldots, N\\
+            & x_i \in \{0, 1\}
+                & \text{for } i = 1, \ldots, n.
+            \end{align*}
+
+        \begin{theorem}
+            If $\{u_{i,j}\}$ is column monotone, $\max z_j \leq T\min z_j$, we can find an integer solution with probability at least $1-2\delta$ in polynomial time such that
+            $$\sum c_ix_i \leq O(\log\log T)OPT,$$
+            and
+            $$\sum_i u_{i,j} x_i \geq z_j - 1.$$
+        \end{theorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Our Improvement}
+    \begin{itemize}
+        \item Assume $b_j$ powers of $2$, $\{-\log b_j\}$ is a monotone integer vector;
+        \item If the objective value is $W$, $-\log b_j$ can be bounded in $[\log\frac{1}{W}, \log\frac{m}{\varepsilon W}]$;
+        \item Guess optimal value $W$ and enumerate possible $\{b_j\}$. Solve the CIP.
+        \item $R_1 = O(1), R_2 = O(\log\log\log m)$;
+    \end{itemize}
+
+\end{frame}
+
+\section{Future Work}
+\begin{frame}
+    \frametitle{Future Work}
+    \begin{itemize}
+        \item Adaptive result for both \MM\ and \mm?
+        \item FPTAS for \MM?
+        \item Constant approximation or even PTAS on the cost of \mm?
+        \item What if taking the $K$-th largest element as objective instead of the largest?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
 Questions?
 \end{frame}
 
