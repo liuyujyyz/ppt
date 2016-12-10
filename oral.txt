@@ -1,0 +1,138 @@
+Hello everyone!
+My name is Liu Yu. I am a student of IIIS. My advisor is Professor Li Jian.
+Today my topic is Stochastic Extreme Value Optimization.
+
+Here I first give two motivations.
+
+Bob is finding a job. There are many great companies, i.e., blbla. He has limited time and only attends part of interviews. He make a simple survey and estimate distributions of possible salary of each company. Now problem is which companies to choose?
+
+There are 3 bandits with different reward distributions. The distributions are shown in the table.
+
+Now you are charged by 1 to play one bandit and take the reward. All the same.
+
+What if charged by 1.5 and can play two of them, but only take one reward?
+
+By some simple calculation, we can know the expected reward by the 3 choices and we will play badit 2 and 3 or 1 and 3.
+
+In these two scenarios, we have inputs including a set of choices (for example ...) and a collection of feasible sets (for example ...).
+What we need is a set which optimizes the expected value of the best choice.
+
+Formally, we can define MAXIMUM-ELEMENT problem as following:
+Given a set of independent non-negative random variables and a constraint, choose a feasible set to maximize $E$.
+In a minimization variant, we minimize the expected value.
+In the MINIMUM-ELEMENT problem, we restrict the constraint to $\calF$ and minimize the value of $E$.
+
+
+A constraint can have exponential size. We assume it can be represented implicitly. 
+For example the cardinality constraint, cost constraint, and so on.
+
+When designing algorithms for stochastic optimization problem, there are two variant of models. 
+One is adaptive model. An adaptive algorithm make a decision and get a feedback, then make the next decision. For example, we play a bandit and know the reward, then decide which to play next.
+The other one is non-adaptive model. Here we have no feedback. For example, Bob chooses companies and takes interviews, interviews won't wait for him to know previous offer.
+In my work, we only consider the non-adaptive model.
+
+There are some work related to ours.
+On MAXIMUM-ELEMENT:
+Goel first proposed a constant approximation algorithm under Cost Constraint.
+Guha studied the Lagrangian version and proved it can be solved optimally.
+Chen studied a online problem and in their work they proposed a ()approximation under Cardinality Constraint.
+On MINIMUM-ELEMENT:
+Goel studied it deeply and obtained some important results:
+They show it is NP-hard to approximate.
+They proved this function is submodular. There are many results on submodular function and we can make use of them to solve this problem.
+They also proposed the CIP approach to design bi-creiterai ()approximation with extra cost.
+
+Here are some notations we will use.
+For a discrete r.v. X, it takes value over the support set {}, with probability PP. In our problems, it is inputted using {}{}.
+A Bernouli r.v. has support set {0,a}, only two values.
+
+Now we present our results on MAX-ELE.
+
+First review the problem definition:
+blalbla
+
+NIANYIBIAN.
+
+Here are some problems related to our results.
+NINAYIBIAN. We can see MS and ms generalizes many classical problems and many of them can be solved optimally or approximately. 
+
+Here is our main result.
+Nianyibian.
+If previous method works, as linear functions are submodular, MS must have constant approximation, and ours works.
+
+Now we show details of these algorithms.
+
+For the constant approximation, the key lemma is the following:
+nianyibian.
+With this lemma, we only find an appropiate T such that
+ninaini
+
+Actually we can't be so lucky and the first can differ from the second one a little.
+
+For the PTAS, there are 3 steps: discretization, compute signatures and enumerate.
+Before discretizaiton, we introduce Bernoulli decomposition. We will use it later. 
+Nianyibian.
+It can be calculated as follows, in polynomial time.
+
+In the discretization step, we 
+nianiyibian
+
+Here are details of discretization.
+Given a distribution, it has many supports and a long tail. In enumeration, we don't like it.
+We first cut the tail in the following way:
+compute Bernoulli decomposition, round down large one.
+Then we round them to multiple of small unit, make support size constant.
+We can prove it makes objective value differ little.
+
+The next is signature computing.
+Now we have \bar X and calculated BD.
+We define signatures for variables as follows
+and define signatures for sets as the sum of signatures of variables.
+
+First we observe the face 
+nianyibian
+For signatures, we have the lemma 
+nianyiab
+the proof sketch is 
+nianyb
+
+Finally the enumeration. We can show that number of signatures are polynomial and enumerable. We enumerate all possible signatures and for each signature, we find a candidate.
+Note that coordinates of signatures are integer multiple of {}.
+We can encode signatures to integers
+and reduce finding a solution to ES problem.
+After all, return the best candidate.
+
+Next I will show our results on MIN-ELE.
+We also first review the problem definition.
+
+As we said, it is NP-hard to approximate, we take an alternate problem: achieve {} approximation and minimize the extra cost.
+
+All previous work design algorithm based on these two facts:
+ninaidb
+
+By them we know that, if we have a solution with {}, it can be boosted to a solution with {}.
+
+We improve previous result in one special case.
+Ninaiyiba
+
+Now we explain what is CIP approach and how we improve the result.
+
+nianyibian 
+
+to solve an IP is NP-hard, we relax it to LP and rounding the solution to integers.
+Note that if we group intervals so that the lengths are increasing in powers of 2, we only lose a factor of 2.
+Hence we reduce the number of constraint to \log m.
+
+We also use their program. We first prove a useful theorem.
+nianyibaian
+
+And we observe some useful facts.
+ninayiban
+
+
+In the last, I introduce some open problem which can be future work.
+nianyibian.
+
+Thank you! Any question?
+
+  

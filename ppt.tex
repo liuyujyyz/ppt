@@ -243,7 +243,7 @@ You are charged by 1.5. You can play two of them but take one reward.
     \begin{itemize}
     \item Input 1: a set of choices (companies, bandits);
 	\item Input 2: a collection of feasible choice sets (time cost, number of plays);
-	\item Output: a feasible set, which optimizes the expected value of the best choice.
+	\item choose a feasible set to try, take the best.
 	\end{itemize}
     \onslide<2->{
 \begin{problem}[$\MM$]
@@ -291,6 +291,7 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
 \begin{frame}
 \frametitle{Related Work}
 \begin{itemize}
+    \item \MM\ is NP-hard.
     \item Goel \etal~\cite{Goel:asking}: a $\frac{1}{4}(1 - \frac{1}{e})$-approximation algorithm for \MM\ under Cost Constraint.
     \item Guha \etal~\cite{Guha07informationacquisition}: the Lagrangian version of \MM\ with Cost Constraint can be solved optimally.
     \item Chen \etal~\cite{NIPS2016:MAB}: online problem and a {\color{red}$(1-\frac{1}{e})$}-approximation offline algorithm for \MM\ under Cardinality Constraint.
@@ -330,9 +331,13 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
 \begin{frame}
 \frametitle{Our Contributions}
 \begin{itemize}
-    \item In previous work, people design approximation algorithms based on $M(S) = \Exp[\max_{i\in S} X_i]$ is submodular; In our work, we introduced the truncation trick used in similar problems~\cite{kleinberg2000allocating,guha2009exceeding}. 
-    \item Our algorithm works under more kinds of constraints.
-    \item We first propose a PTAS for \MM\ using the discretization and enumeration technique.
+    \item In previous work, approximation algorithms based on $M(S) = \Exp[\max_{i\in S} X_i]$ is submodular; 
+    \item In our work, 
+        \begin{itemize}
+            \item the truncation trick introduced, used in similar problems~\cite{kleinberg2000allocating,guha2009exceeding}. 
+            \item Constant algorithm under more kinds of constraints.
+            \item First PTAS for \MM\ using the discretization and enumeration technique.
+        \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -340,15 +345,15 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
 \begin{frame}
     \frametitle{Related Problems}
     \begin{problem}[MAX-SUM]
-        Input: Given a set of numbers $\{v_i\}$ and a constraint $\calF$;\\
+        Input: a set of numbers $\{v_i\}$ and a constraint $\calF$;\\
         Output: a set $S\in \calF$ maximizing $\sum_{i\in S} v_i$.
     \end{problem}
     \begin{problem}[MIN-SUM]
-        Input: Given a set of numbers $\{v_i\}$ and a constraint $\calF$;\\
+        Input: a set of numbers $\{v_i\}$ and a constraint $\calF$;\\
         Output: a set $S\in\calF$ minimizing $\sum_{i\in S} v_i$.
     \end{problem}
     \begin{problem}[EXACT-SUM]
-        Input: Given a set of integers $\{v_i\}$, a target $T$ and a constraint $\calF$;\\
+        Input: a set of integers $\{v_i\}$, a target $T$ and a constraint $\calF$;\\
         Output: a set $S\in \calF$ with $\sum_{i\in S} v_i = T$.
     \end{problem}
 \end{frame}
@@ -377,8 +382,8 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
     \onslide<2->{
     Find a $T$ such that:
     \begin{itemize}
-        \item For all set $S\in \calF$, $\Exp[\sum_{i\in S} \max(X_i - T, 0)] \leq T$ (provide a upper bound for optimal solution);
-        \item Exist a set $\sol$, $\Exp[\sum_{i\in \sol} \max(X_i - T, 0)] \geq T$ (provide a lower bound for algorithm output).
+        \item For all set $S\in \calF$, $\sum_{i\in S} \Exp[\max(X_i - T, 0)] \leq T$ (provide a upper bound for optimal solution);
+        \item Exist a set $\sol$, $\sum_{i\in \sol} \Exp[\max(X_i - T, 0)] \geq T$ (provide a lower bound for algorithm output).
     \end{itemize}
 }
 \end{frame}
@@ -407,9 +412,9 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
 \begin{frame}
     \frametitle{PTAS: Discretization}
     \begin{itemize}
-        \item    We first run a constant approximation algorithm to obtain an approximation solution $S$ with objective value $M = \Exp[\max_{i\in S} X_i]$.\\
-        \item    We discretize input distributions using their Bernoulli decomposition and the value $M$.\\
-        \item    After discretization step we get:
+        \item    Run a constant approximation algorithm to obtain an approximation solution $S$ with objective value $W = \Exp[\max_{i\in S} X_i]$.\\
+        \item    Discretize input distributions using their Bernoulli decomposition and the value $W$.\\
+        \item    After discretization:
     \begin{itemize}
         \item A set $\mathsf{Supp}$ of size $z = O(\frac{1}{\varepsilon^2})$;
         \item $n$ random variables $\bar X_1, \ldots, \bar X_n$ taking values over set $\mathsf{Supp}$.
@@ -521,9 +526,10 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
     \frametitle{PTAS: Signatures}
     \begin{itemize}
         \item $\bar X_i$ can be Bernoulli decomposed to $\{Y_{i,j}\}_{j=1}^z$.
-        \item Define Signature for $\bar X_i$ using $q_{i,j} = \Pr[Y_{i,j} = 0]$:
+        \item Signature for $\bar X_i$ ($q_{i,j} = \Pr[Y_{i,j} = 0]$):
             $$\mathsf{Sig}(\bar X_i) = (\lfloor \frac{-\log(q_{i,1})}{\varepsilon^4 / n}\rfloor\varepsilon^4/n, \cdots, \lfloor \frac{-\log(q_{i,z})}{\varepsilon^4 / n}\rfloor\varepsilon^4/n)$$
-                    \item Define Signature for set $S$ as $$\mathsf{Sig}(S) = \sum_{i\in S} \mathsf{Sig}(\bar X_i).$$ 
+        \item Signature for set $S$:
+            $$\mathsf{Sig}(S) = \sum_{i\in S} \mathsf{Sig}(\bar X_i).$$ 
     \end{itemize}
 \end{frame}
 
@@ -531,7 +537,7 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
     \frametitle{Signatures}
 \begin{block}{Fact}
                 \begin{itemize}
-                    \item $\Exp[\max_{i\in S} \bar X_i]$ takes value on $\mathsf{Supp}$, and can be Bernoulli decomposed to $\{BD_{S,j}\}_{j=1}^z$.\\ 
+                    \item $\max_{i\in S} \bar X_i$ takes value on $\mathsf{Supp}$, and can be Bernoulli decomposed to $\{BD_{S,j}\}_{j=1}^z$.\\ 
                     \item $BD_{S,j} = \max_{i\in S} Y_{i,j}$, and $\Pr[BD_{S,j} = 0] = \prod_{i\in S} \Pr[Y_{i,j} = 0]$.
                 \end{itemize}
             \end{block}
@@ -550,14 +556,24 @@ A constraint $\calF$ can have exponential size. Assume it can be represented imp
 \end{frame}
 
 \begin{frame}
+    \newcommand{\epsw}{{\color{red} $O(\varepsilon)W$}}
     \frametitle{PTAS: Enumeration}
     \begin{enumerate}
-        \onslide<1->{\item Enumerate possible signatures of sets.}
-        \onslide<2->{\item For each signature, try to find a candidate with such signature.\\}
-            \only<3-3>{ {\color{blue} Coordinates of signatures are integer multiple of $\varepsilon^4/n$.\\ 
+        \onslide<1->{
+        \item Discretize input random variables. \onslide<6->{{\color{red}$O(\varepsilon)W$}}
+        \item Compute signatures of variables.
+        }
+    \onslide<2->{\item Enumerate possible signatures of sets.\onslide<7->{{\color{red}$O(\varepsilon)W$}}}
+    \onslide<3->{\item For each signature, try to find a candidate with such signature.\onslide<8->{{\color{red} $O(\varepsilon)W$}}}
+            \only<4-4>{ {\color{blue} Coordinates of signatures are integer multiple of $\varepsilon^4/n$.\\ 
             Encode one signature to one integer.\\
     Reduce finding a corresponding solution to \ES.\\}}
-\onslide<4->{        \item Return a candidate with the best objective value as solution.}
+\onslide<5->{        \item Return a candidate with the best objective value as solution.}
+    \onslide<9->{
+        \begin{spacing}{2.0}
+
+        \end{spacing}
+    $$|SOL - OPT| \leq O(\varepsilon)W \leq O(\varepsilon)OPT$$}
     \end{enumerate}
 \end{frame}
 
